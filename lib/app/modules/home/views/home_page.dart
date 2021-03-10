@@ -1,4 +1,4 @@
-import 'package:accessctrl/app/modules/controller/home_controller.dart';
+import 'package:accessctrl/app/modules/home/controllers/home_controller.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 //import 'dart:ui';
@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 //import 'package:accessctrl/app/data/models/sistemas.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({Key key}) : super(key: key);
+  // const HomePage({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +16,6 @@ class HomePage extends StatelessWidget {
           appBar: AppBar(
             elevation: 1,
             centerTitle: true,
-            backgroundColor: Colors.blueAccent,
             title: Text(
               'Menu Principal',
             ),

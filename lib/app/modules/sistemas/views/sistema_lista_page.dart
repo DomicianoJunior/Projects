@@ -1,7 +1,9 @@
-import 'package:accessctrl/app/routes/app_routes.dart';
+import 'package:accessctrl/app/modules/sistemas/controllers/sistema_lista_controller.dart';
+import 'package:accessctrl/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 
 import 'package:accessctrl/app/data/models/sistemas.dart';
+import 'package:get/get_state_manager/get_state_manager.dart';
 
 class SistemaLista extends StatelessWidget {
   @override
@@ -13,23 +15,25 @@ class SistemaLista extends StatelessWidget {
       Sistema(id: '4', descricao: 'Execução Orçamentária', sigla: 'EXO'),
     ];
 
-    return SafeArea(
-      child: Scaffold(
-        appBar: AppBar(
-          title: Center(child: Text('Lista de Sistemas')),
-          actions: [
-            IconButton(
-              icon: Icon(Icons.add), //onPressed: () {},
-              onPressed: () {
-                Navigator.of(context).pushNamed(AppRoutes.SISTEMASEDIT);
-              },
-            ),
-          ],
+    return GetBuilder<SistemaListaController>(
+      builder: (_) => SafeArea(
+        child: Scaffold(
+          appBar: AppBar(
+            title: Center(child: Text('Lista de Sistemas')),
+            actions: [
+              IconButton(
+                icon: Icon(Icons.add), //onPressed: () {},
+                onPressed: () {
+                  Navigator.of(context).pushNamed(Routes.SISTEMASEDIT);
+                },
+              ),
+            ],
+          ),
+          body: ListView.builder(
+              itemCount: lstSistema.length,
+              itemBuilder: (context, i) =>
+                  _buildListSistemas(context, lstSistema[i])),
         ),
-        body: ListView.builder(
-            itemCount: lstSistema.length,
-            itemBuilder: (context, i) =>
-                _buildListSistemas(context, lstSistema[i])),
       ),
     );
   }
@@ -47,7 +51,7 @@ class SistemaLista extends StatelessWidget {
               color: Colors.orange,
               onPressed: () {
                 Navigator.of(context).pushNamed(
-                  AppRoutes.SISTEMASEDIT,
+                  Routes.SISTEMASEDIT,
                   // passo o sistema que foi clicado na lista como parametro para a tela de edicao
                   arguments: s,
                 );

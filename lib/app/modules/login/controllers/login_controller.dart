@@ -1,8 +1,7 @@
-import 'dart:convert';
-
+import 'package:accessctrl/global_widgets/show_message.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
-
+import 'package:http/http.dart' as http;
 // import 'dart:async';
 // import 'package:shared_preferences/shared_preferences.dart';
 
@@ -60,24 +59,44 @@ class LoginController extends GetxController {
     lembrarusuario = value;
   }
 
-  // RxString ip = ''.obs;
-  // void updIP(String value) {
-  //   ip.value = value;
-  // }
+  RxString ip = ''.obs;
+  void updIP(String value) {
+    ip.value = value;
+  }
 
-  var urlBase = 'http:/localhost:8100'.obs;
+  var urlBase = 'https://172.20.10.4:8100/';
 
-  var loginRemoto = 'http:/localhost:8100/' +
-      'Login?dwaccesstag=UVZGREVTT0tIMTAwSFhB&user=' +
-      base64.encode(utf8.encode('junior')) +
-      '&pwd=' +
-      base64.encode(utf8.encode('j31r0513'));
+  // var loginRemoto =
+  //     'Login?user=ZGF0YXByaW1l&pwd=c2VuaGE=&dwaccesstag=UVZGREVTT0tIMTAwSFhB' +
+  //         base64.encode(utf8.encode('labar')) +
+  //         '&pwd=' +
+  //         base64.encode(utf8.encode('l01b02r0'));
+
+  var loginRemoto =
+      'Login?user=ZGF0YXByaW1l&pwd=c2VuaGE=&dwaccesstag=UVZGREVTT0tIMTAwSFhB';
+
+  void logarUsario(ctx) async {
+    http.Response response;
+    try {
+      //print(urlBase + ' ' + loginRemoto);
+      response = await http.get(Uri.parse(urlBase + loginRemoto));
+
+      // response = await http.get(Uri.parse('http://172.20.10.4:8100/Login?user=ZGF0YXByaW1l&pwd=c2VuaGE=&dwaccesstag=UVZGREVTT0tIMTAwSFhB'));
+
+      print(response.body);
+
+      if (response.statusCode == 200) {
+        if (response.body != 'erro') {
+          print('Login ok');
+          showMessage(2, 'Login', 'Login ok', ctx);
+          //     _gravaArqIni();
+
+        } else
+          showMessage(2, 'Login', 'Usuário ou senha incorreta', ctx);
+      } else
+        showMessage(2, 'Login', 'Erro na requisição', ctx);
+    } catch (e) {
+      showMessage(2, 'Login', 'Servidor offline', ctx);
+    }
+  }
 }
-
-// RxString _loginRemoto = ''.obs;
-// get loginRemoto => this._loginRemoto.value;
-// set loginRemoto(value) => this._loginRemoto.value = urlBase +
-//     'Login?dwaccesstag=UVZGREVTT0tIMTAwSFhB&user=' +
-//     base64.encode(utf8.encode(usuario.value)) +
-//     '&pwd=' +
-//     base64.encode(utf8.encode(senha.value));

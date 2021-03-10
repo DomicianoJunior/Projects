@@ -1,4 +1,4 @@
-import 'package:accessctrl/app/modules/controller/login_controller.dart';
+import 'package:accessctrl/app/modules/login/controllers/login_controller.dart';
 import 'package:get/get.dart';
 
 class LoginBinding extends Bindings {

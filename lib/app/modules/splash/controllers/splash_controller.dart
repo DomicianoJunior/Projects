@@ -1,5 +1,5 @@
+import 'package:accessctrl/app/routes/app_pages.dart';
 import 'package:get/get.dart';
-import 'package:accessctrl/app/routes/app_routes.dart';
 
 class SplashController extends GetxController {
   void onReady() {
@@ -7,7 +7,7 @@ class SplashController extends GetxController {
     Future.delayed(
       Duration(seconds: 2),
       () {
-        Get.offNamed(AppRoutes.LOGIN);
+        Get.offNamed(Routes.LOGIN);
       },
     );
   }
